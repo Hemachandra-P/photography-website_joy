@@ -1,0 +1,7 @@
+__pycache__/
+.venv/
+*.pyc
+.env
+photography.db
+media/uploads/*
+!media/uploads/.gitkeep

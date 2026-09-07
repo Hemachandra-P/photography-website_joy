@@ -1,0 +1,4 @@
+Flask>=3.1,<4
+Werkzeug>=3.1,<4
+Pillow>=11,<12
+supabase>=2.18,<3

@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Admin — Joy Photography{% endblock %}
+{% block content %}<main class="admin-page login-page"><div class="login-card"><div class="section-label">Private area</div><h1>Gallery<br><em>Admin.</em></h1><form method="post"><label>Password<input type="password" name="password" autofocus required></label><button class="solid-btn">Enter dashboard →</button></form><a href="{{ url_for('home') }}" class="muted-link">← Back to gallery</a></div></main>{% endblock %}

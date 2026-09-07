@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Joy Photography — a visual archive of quiet moments, people and places.">
+  <title>{% block title %}Joy Photography{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+<div class="noise"></div>
+<div class="ambient-bg" aria-hidden="true">
+  <canvas id="solar-canvas" aria-hidden="true"></canvas>
+  <div class="space-nebula nebula-a"></div><div class="space-nebula nebula-b"></div>
+  <span class="orb orb-a"></span><span class="orb orb-b"></span>
+</div>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+<header class="nav" id="site-nav">
+  <a class="brand" href="{{ url_for('home') }}"><span>J</span>OY<span class="dot">.</span></a>
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a class="nav-home" href="{{ url_for('home') }}" aria-label="Home"><span>Home</span></a>
+    <a href="{{ url_for('home') }}#about">About</a>
+    <a href="{{ url_for('home') }}#work">Work</a>
+    <a href="{{ url_for('home') }}#contact">Contact</a>
+  </nav>
+  <a class="nav-admin" href="{{ url_for('admin') if is_admin else url_for('admin_login') }}">Admin <span>↗</span></a>
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <a href="{{ url_for('home') }}">Home</a>
+  <a href="{{ url_for('home') }}#about">About</a>
+  <a href="{{ url_for('home') }}#work">Work</a>
+  <a href="{{ url_for('home') }}#contact">Contact</a>
+  <a href="{{ url_for('admin') if is_admin else url_for('admin_login') }}">Admin ↗</a>
+</div>
+{% with messages=get_flashed_messages(with_categories=true) %}
+{% if messages %}<div class="flash-wrap">{% for cat,msg in messages %}<div class="flash {{cat}}">{{msg}}</div>{% endfor %}</div>{% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+<footer class="footer">
+  <div class="footer-top">
+    <div><div class="footer-name">Hemachandra<span>.</span></div><p>Frames of places, people<br>and passing moments.</p></div>
+    <div class="footer-links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+    <a class="back-top" href="#">Back to top ↑</a>
+  </div>
+  <div class="footer-bottom"><span>© {{ 2026 }} Hemachandra</span><span>Made with intention.</span></div>
+</footer>
+<script src="/js/site.js" defer></script>
+</body>
+</html>

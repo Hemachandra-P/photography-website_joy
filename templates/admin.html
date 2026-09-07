@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Admin — Joy Photography{% endblock %}
+{% block content %}
+<main class="admin-page">
+  <div class="admin-head"><div><div class="section-label">Private area</div><h1>Gallery <em>Admin.</em></h1></div><div class="admin-head-actions"><a class="outline-btn" href="{{ url_for('admin_settings') }}">Change password</a><a class="outline-btn" href="{{ url_for('admin_logout') }}">Log out</a></div></div>
+  <div class="stats"><div><b>{{stats.total}}</b><span>Photos</span></div><div><b>{{stats.featured}}</b><span>Featured</span></div><div><b>{{stats.categories}}</b><span>Collections</span></div></div>
+  <section class="upload-card">
+    <div><div class="section-label">Add to archive</div><h2>Upload new photographs</h2><p>Drop several images at once. They appear immediately in the public gallery.</p></div>
+    <form method="post" action="{{ url_for('upload') }}" enctype="multipart/form-data" class="upload-form">
+      <label class="dropzone" id="dropzone"><input id="photo-input" type="file" name="photos" accept="image/*" multiple required><span class="upload-icon">＋</span><strong>Choose or drop photos</strong><small id="file-count">JPG, PNG, WEBP · up to 25MB each</small></label>
+      <div class="form-grid"><label>Category<input name="category" placeholder="e.g. Travel, Portraits" required></label><label>Shared title <input name="title" placeholder="Optional — leave blank to use filename"></label><label class="wide">Caption <textarea name="caption" rows="3" placeholder="Optional note about this collection..."></textarea></label><label class="check"><input type="checkbox" name="featured"> Feature these photos</label></div>
+      <button class="solid-btn">Add photographs →</button>
+    </form>
+  </section>
+  <section class="manage"><div class="manage-head"><div class="section-label">Your archive</div><h2>Manage photographs</h2></div>
+  <div class="admin-grid">
+  {% for p in photos %}<article class="admin-photo"><img src="{{ p.photo_url }}" loading="lazy"><div class="admin-photo-body"><div class="mini-meta"><span>{{p.category}}</span>{% if p.featured %}<span>Featured</span>{% endif %}</div><form method="post" action="{{url_for('edit_photo',photo_id=p.id)}}"><input name="title" value="{{p.title}}"><input name="category" value="{{p.category}}"><textarea name="caption" rows="2" placeholder="Caption">{{p.caption}}</textarea><button class="mini-btn">Save</button></form><div class="row-actions"><form method="post" action="{{url_for('toggle_featured',photo_id=p.id)}}"><button class="text-btn">{% if p.featured %}Unfeature{% else %}Feature{% endif %}</button></form><form method="post" action="{{url_for('delete_photo',photo_id=p.id)}}" onsubmit="return confirm('Delete this photo?')"><button class="danger-btn">Delete</button></form></div></div></article>{% endfor %}
+  </div></section>
+</main>
+{% endblock %}
