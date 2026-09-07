@@ -124,3 +124,12 @@ main>section{position:relative;z-index:2}
   #solar-canvas{opacity:.4}
   .hero-welcome i{animation:none!important}
 }
+@media(max-width:800px){
+  .nav.nav-hidden{
+    transform:translateY(-100%);
+  }
+
+  .nav{
+    transition:transform .35s ease,background .35s,box-shadow .35s,height .35s;
+  }
+}
