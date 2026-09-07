@@ -1,61 +1,106 @@
-# Joy Photography — Modern Portfolio
+# 📸 Joy Photography
 
-A responsive photography portfolio built with Flask, with a local SQLite mode for development and a production-ready Supabase mode for Vercel.
+A modern, responsive photography portfolio website built to showcase photographs through a clean editorial-style interface with an interactive gallery, collections, fullscreen viewing, and a secure admin dashboard.
 
-## Highlights
+The project uses **Flask** for the backend and **Supabase PostgreSQL + Storage** for production data and image storage.
 
-- Cinematic responsive portfolio
-- Animated ambient background + scroll reveals
-- Hero parallax on desktop/mobile-safe fallback
-- 10 photos initially, then **Show more +10**
-- Portrait / Landscape format filtering
-- Collection filtering
-- Fullscreen lightbox with keyboard + touch swipe
-- Admin upload, edit, feature/unfeature and delete
-- Supabase PostgreSQL + Storage support
-- Vercel-ready Flask entrypoint
-- Local SQLite fallback for easy testing
+🌐 **Live Website:** https://photography-website-joy.vercel.app/
 
-## Local test
+---
 
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python app.py
-```
+## ✨ Features
 
-Open `http://127.0.0.1:5000`.
+### 📷 Photography Gallery
+- 170+ photographs
+- Multiple photography collections
+- Portrait and Landscape filters
+- Featured photographs
+- Collection-based filtering
+- Responsive masonry-style gallery
+- Fullscreen image lightbox
+- Smooth image transitions
 
-Admin: `http://127.0.0.1:5000/admin`
+### 🎨 Modern Design
+- Minimal editorial photography aesthetic
+- Responsive desktop, tablet, and mobile layouts
+- Animated solar-system inspired background
+- Scroll-reactive visual effects
+- Smooth navigation and interactions
+- Optimized image loading
 
-Default local admin password is `admin123` unless `ADMIN_PASSWORD` is set.
+### 🔐 Admin Dashboard
+- Password-protected admin area
+- Upload new photographs
+- Add photograph metadata
+- Featured photograph management
+- Collection/category management
+- Persistent admin password
+- Secure server-side authentication
 
-## Supabase + Vercel
+### ☁️ Cloud Storage
+- Supabase PostgreSQL database
+- Supabase Storage for photographs
+- Public image delivery through Supabase Storage
+- Persistent gallery data
+- Production-ready cloud architecture
 
-1. Create a Supabase project.
-2. Run `supabase_schema.sql` in the Supabase SQL Editor.
-3. Create a **public Storage bucket named `photos`**.
-4. Set Vercel environment variables:
-   - `SECRET_KEY`
-   - `ADMIN_PASSWORD`
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `SUPABASE_BUCKET=photos`
-5. Push the project to GitHub and import it into Vercel.
-6. Run `python scripts/migrate_to_supabase.py` once locally to upload the existing gallery.
+### 🚀 Deployment
+- Deployed on Vercel
+- Flask backend running in production
+- Supabase used as the production database and storage layer
+- Environment variables used for sensitive credentials
+- SQLite used as the local development fallback
 
-**Never expose `SUPABASE_SERVICE_ROLE_KEY` in frontend JavaScript.** It is server-only.
+---
 
-### Local/Supabase behavior
+## 🛠️ Tech Stack
 
-Without Supabase environment variables, the app uses the included SQLite database and local media so you can test the design offline. Once the Supabase variables are present, the app reads/writes the Supabase database and Storage bucket instead.
+### Backend
+- Python
+- Flask
+- Werkzeug
+- Pillow
 
-### V6 performance
-The cinematic background is CSS-only and the DSLR assembly uses a single requestAnimationFrame scroll loop with transform-only updates. The site also honors `prefers-reduced-motion` for accessibility.
+### Database & Storage
+- PostgreSQL
+- Supabase
+- Supabase Storage
 
-### Admin password
-The admin password can now be changed from **Admin → Change password**. Passwords are stored as secure hashes in the local SQLite database or the Supabase `admin_settings` table. On a fresh install, the `ADMIN_PASSWORD` environment variable is used as the first-run password. For Supabase deployments, run the latest `supabase_schema.sql` once before using the password settings.
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Responsive Web Design
 
-### Gallery order
-The public gallery intentionally starts with the elephant portrait (`new-10.jpeg`), followed by the original featured frame, then the remaining archive.
+### Deployment & Tools
+- Git
+- GitHub
+- Vercel
+- Supabase
+- Python Virtual Environment
+
+---
+
+## 🏗️ Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │      Visitor        │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │       Vercel        │
+                    │   Flask Application  │
+                    └──────────┬──────────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 │                           │
+                 ▼                           ▼
+       ┌──────────────────┐        ┌──────────────────┐
+       │ Supabase         │        │ Supabase Storage │
+       │ PostgreSQL       │        │    Photos        │
+       │                  │        │                  │
+       │ Gallery Metadata │        │ Image Files      │
+       │ Admin Settings   │        │                  │
+       └──────────────────┘        └──────────────────┘
