@@ -25,13 +25,31 @@ document.addEventListener("DOMContentLoaded",()=>{
     const y=window.scrollY;
     scrollVelocity=y-lastScroll;
     lastScroll=y;
+
     if(progress) progress.style.width=`${max>0?(y/max)*100:0}%`;
-    if(nav) nav.classList.toggle("scrolled",y>30);
-    if(heroImage && !prefersReduced && y < window.innerHeight*1.15) heroImage.style.transform=`translate3d(0,${Math.min(y*.08,55)}px,0) scale(1.04)`;
+
+    if(nav){
+        nav.classList.toggle("scrolled",y>30);
+
+        if(window.innerWidth<=800){
+            if(scrollVelocity>0 && y>100){
+                nav.classList.add("nav-hidden");
+            }else if(scrollVelocity<0){
+                nav.classList.remove("nav-hidden");
+            }
+        }else{
+            nav.classList.remove("nav-hidden");
+        }
+    }
+
+    if(heroImage && !prefersReduced && y < window.innerHeight*1.15)
+        heroImage.style.transform=`translate3d(0,${Math.min(y*.08,55)}px,0) scale(1.04)`;
+
     document.documentElement.style.setProperty("--scroll-y",`${y}px`);
     document.documentElement.style.setProperty("--scroll-velocity",`${Math.max(-18,Math.min(18,scrollVelocity))}`);
+
     ticking=false;
-  }
+}
   window.addEventListener("scroll",()=>{if(!ticking){requestAnimationFrame(onScroll);ticking=true}},{passive:true});
   onScroll();
 
