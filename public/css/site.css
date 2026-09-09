@@ -133,8 +133,8 @@ main>section{position:relative;z-index:2}
     transition:transform .35s ease,background .35s,box-shadow .35s,height .35s;
   }
 }
-@media(min-width:850px){
+@media(min-width:801px){
   .hero-welcome{
-    transform:translateY(35px);
+    transform:translateY(65px);
   }
 }
