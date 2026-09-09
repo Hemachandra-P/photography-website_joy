@@ -135,6 +135,6 @@ main>section{position:relative;z-index:2}
 }
 @media(min-width:801px){
   .hero-welcome{
-    transform:translateY(65px);
+    transform:translateY(50px);
   }
 }
